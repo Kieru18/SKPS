@@ -1,1 +1,1 @@
-## Sprawozdanie z labolatorium 1 
+## Sprawozdanie z laboratorium 1 
