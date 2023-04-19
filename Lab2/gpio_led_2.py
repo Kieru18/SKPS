@@ -4,39 +4,34 @@ from itertools import repeat
 import math
 
 def PWM(gpio, frequency, duty_cycle):
-    now = time.time()
+    oscillation = 1 / frequency
+    high_duration = oscillation * (duty_cycle / 100)
+    low_duration = oscillation - high_duration
+
+    flag=True
     
-    if isinstance(frequency, int):
-        frequency = repeat(frequency)
-
-    if isinstance(duty_cycle, (int, float)):
-        duty_cycle = repeat(duty_cycle)
-
-    for p, dc in zip(frequency, duty_cycle):
-        cycle = 1000/p
-        on = cycle * dc
-
-        off = cycle - on
-        if off < 0:
-            off = 0
+    for _ in range(cycles):
+        start = time()
         
+        gpio.value = 1
+        sleep(high_duration)
+        gpio.value = 0
+        sleep(low_duration)        
 
-        if on:
-            gpio.value = 1  
-            # print(f'HIGH, {now}')
-            start = time.time()
-            now = time.sleep(on/1000)
-            now = start
-
-        if off:
-            gpio.value = 0
-            # print(f'LOW, {now}')
-            start = time.time()
-            now = time.sleep(off/1000)
-            now = start
-            
-
-   
+        if (duty_cycle == 100):
+            flag=False
+        if (duty_cycle == 0):
+            flag=True
+	
+        if flag:
+           duty_cycle += duty_cycle_change
+        else:
+           duty_cycle -= duty_cycle_change        
+        
+        oscillation = 1 / frequency
+        high_duration = oscillation * (duty_cycle / 100)
+        low_duration = oscillation - high_duration
+    
 
 
 def main():
