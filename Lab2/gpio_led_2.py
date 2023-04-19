@@ -41,8 +41,7 @@ def main():
     gpio27.direction = 'out'
     gpio27.value = 0
 
-    PWM(gpio27, 12, 1024)
-    time.sleep(3)
+    PWM(gpio27, 12, range(0, 1025))
 
     gpio27.export = False
 
