@@ -3,44 +3,27 @@ import time
 from itertools import repeat
 import math
 
-def PWM(gpio, frequency, duty_cycle, cycles, delta):
+def PWM(gpio, frequency, duty_cycle):
     gpio.export = True
     gpio.direction = 'out'
     gpio.value = 0
 
-    cycle = 1 / frequency
-    on = cycle * (duty_cycle / 100)
-    off = cycle - on
-
-    flag = True
-
-    for _ in range(cycles):
+    for ii in range(frequency):
         gpio.value = 1
-        time.sleep(on)
+        time.sleep(duty_cycle/10000)
         gpio.value = 0
-        time.sleep(off)
-
-        if duty_cycle == 100:
-            flag = False
-        
-        if duty_cycle == 0:
-            flag = True
-        
-        if flag:
-            duty_cycle += delta
-        else:
-            duty_cycle -= delta
-
-        cycle = 1 / frequency
-        on = cycle * (duty_cycle / 100)
-        off = cycle - on
+        time.sleep(0.01 - duty_cycle/10000)
 
     gpio.export = False
 
 
 def main():
     gpio27 = gpio4.SysfsGPIO(27)
-    PWM(gpio27, 50, 0, 2, 300)
+    
+    for ii in range(100)
+    s = (math.sin(ii/10)+1)/2 * 100
+    PWM(gpio27, s, 10)
+
 
 if __name__ == "__main__":
     main()
