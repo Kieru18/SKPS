@@ -13,7 +13,7 @@ def PWM(gpio, frequency, duty_cycle):
         duty_cycle = repeat(duty_cycle)
 
     for p, dc in zip(frequency, duty_cycle):
-        cycle = 1/p
+        cycle = 1000/p
         on = cycle * dc
         off = cycle - on
 
@@ -21,14 +21,14 @@ def PWM(gpio, frequency, duty_cycle):
             gpio.value = 1  
             # print(f'HIGH, {now}')
             start = time.time()
-            now = time.sleep(on)
+            now = time.sleep(on/1000)
             now = start
 
         if off:
             gpio.value = 0
             # print(f'LOW, {now}')
             start = time.time()
-            now = time.sleep(off)
+            now = time.sleep(off/1000)
             now = start
             
 
