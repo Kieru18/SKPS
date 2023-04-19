@@ -20,9 +20,9 @@ def PWM(gpio, frequency, duty_cycle):
 def main():
     gpio27 = gpio4.SysfsGPIO(27)
     
-    for ii in range(100)
-    s = (math.sin(ii/10)+1)/2 * 100
-    PWM(gpio27, s, 10)
+    for ii in range(100):
+        s = (math.sin(ii/10)+1)/2 * 100
+        PWM(gpio27, s, 10)
 
 
 if __name__ == "__main__":
