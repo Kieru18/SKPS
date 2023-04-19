@@ -28,7 +28,7 @@ def PWM(gpio, frequency, duty_cycle):
             gpio.value = 0
             # print(f'LOW, {now}')
             start = time.time()
-            now = time.sleep(on)
+            now = time.sleep(off)
             now = start
             
 
