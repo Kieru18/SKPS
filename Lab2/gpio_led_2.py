@@ -15,7 +15,11 @@ def PWM(gpio, frequency, duty_cycle):
     for p, dc in zip(frequency, duty_cycle):
         cycle = 1000/p
         on = cycle * dc
+
         off = cycle - on
+        if off < 0:
+            off = 0
+        
 
         if on:
             gpio.value = 1  
