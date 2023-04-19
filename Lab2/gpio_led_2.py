@@ -9,7 +9,7 @@ def PWM(gpio, frequency, duty_cycle):
     if isinstance(frequency, int):
         frequency = repeat(frequency)
 
-    if isinstance(duty_cycle, float):
+    if isinstance(duty_cycle, (int, float)):
         duty_cycle = repeat(duty_cycle)
 
     for p, dc in zip(frequency, duty_cycle):
@@ -18,7 +18,7 @@ def PWM(gpio, frequency, duty_cycle):
         off = cycle - on
 
         if on:
-            gpio.value = 1
+            gpio.value = 1  
             # print(f'HIGH, {now}')
             start = time.time()
             now = time.sleep(on)
