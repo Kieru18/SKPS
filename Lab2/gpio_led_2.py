@@ -9,7 +9,7 @@ def PWM(gpio, frequency, duty_cycle, cycles, delta):
     gpio.value = 0
 
     cycle = 1 / frequency
-    on = cycle * duty_cycle
+    on = cycle * (duty_cycle / 100)
     off = cycle - on
 
     flag = True
@@ -32,7 +32,7 @@ def PWM(gpio, frequency, duty_cycle, cycles, delta):
             duty_cycle -= delta
 
         cycle = 1 / frequency
-        on = cycle * duty_cycle
+        on = cycle * (duty_cycle / 100)
         off = cycle - on
 
     gpio.export = False
