@@ -22,7 +22,7 @@ def main():
     
     for ii in range(100):
         s = (math.sin(ii/10)+1)/2 * 100
-        PWM(gpio27, s, 10)
+        PWM(gpio27, 10, s)
 
 
 if __name__ == "__main__":
