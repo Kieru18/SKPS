@@ -39,7 +39,8 @@ def PWM(gpio, frequency, duty_cycle, cycles, delta):
 
 
 def main():
-    PWM(27, 50, 0, 2, 300)
+    gpio27 = gpio4.SysfsGPIO(27)
+    PWM(gpio27, 50, 0, 2, 300)
 
 if __name__ == "__main__":
     main()
