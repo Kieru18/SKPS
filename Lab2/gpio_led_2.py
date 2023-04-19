@@ -22,7 +22,7 @@ def main():
         s = (math.sin(ii/10)+1)/2 * 100
         PWM(gpio27, 10, s)
 
-     gpio.export = False
+    gpio.export = False
 
 if __name__ == "__main__":
     main()
