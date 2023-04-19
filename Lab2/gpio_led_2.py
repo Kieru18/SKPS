@@ -1,9 +1,9 @@
 import gpio4
-import time
+from time import time, sleep
 from itertools import repeat
 import math
 
-def PWM(gpio, frequency, duty_cycle):
+def PWM(gpio, duty_cycle, frequency, duty_cycle_change, cycles):
     oscillation = 1 / frequency
     high_duration = oscillation * (duty_cycle / 100)
     low_duration = oscillation - high_duration
@@ -40,7 +40,7 @@ def main():
     gpio27.direction = 'out'
     gpio27.value = 0
 
-    PWM(gpio27, 12, range(0, 1025))
+    PWM(gpio27, 0, 50, 2, 1000)
 
     gpio27.export = False
 
