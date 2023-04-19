@@ -14,15 +14,15 @@ def PWM(gpio, frequency, duty_cycle):
 
 def main():
     gpio27 = gpio4.SysfsGPIO(27)
-    gpio.export = True
-    gpio.direction = 'out'
+    gpio27.export = True
+    gpio27.direction = 'out'
     gpio27.value = 0
 
     for ii in range(100):
         s = (math.sin(ii/10)+1)/2 * 100
         PWM(gpio27, 10, s)
 
-    gpio.export = False
+    gpio27.export = False
 
 if __name__ == "__main__":
     main()
