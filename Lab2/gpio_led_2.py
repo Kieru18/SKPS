@@ -12,7 +12,9 @@ def PWM(gpio, frequency, duty_cycle, cycles, delta):
     on = cycle * duty_cycle
     off = cycle - on
 
-    for i in range(cycles):
+    flag = True
+
+    for _ in range(cycles):
         gpio.value = 1
         time.sleep(on)
         gpio.value = 0
