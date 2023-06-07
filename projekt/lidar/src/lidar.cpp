@@ -9,6 +9,33 @@
 #define VERSION_REQUIRED_BUILD 1
 
 
+
+void write_data(const std::string &file, const std::string &data) {
+    std::ofstream output;
+    output.open(file);
+    output << text << "\n";
+    output.close();
+}
+
+
+void check_sensor_status(VL53L0X_Error status) {
+    if (status == VL53L0X_ERROR_NONE) {
+        return;
+    }
+    std::cerr << "SENSOR ERROR" << std::endl;
+    exit(-1);
+}
+
+void check_measurement_data(VL53L0X_RangingMeasurementData_t *data) {
+    if (data->RangeStatus == 0) {
+        return;
+    }
+    std::cerr << "SENSOR MEASUREMENT ERROR" << std::endl;
+    exit(-1);
+}
+
+
+
 void print_pal_error(VL53L0X_Error Status){
     char buf[VL53L0X_MAX_STRING_LENGTH];
     VL53L0X_GetPalErrorString(Status, buf);
@@ -29,7 +56,6 @@ void print_range_status(VL53L0X_RangingMeasurementData_t* pRangingMeasurementDat
     printf("Range Status: %i : %s\n", RangeStatus, buf);
 
 }
-
 
 VL53L0X_Error rangingTest(VL53L0X_Dev_t *pMyDevice)
 {
@@ -131,6 +157,8 @@ VL53L0X_Error rangingTest(VL53L0X_Dev_t *pMyDevice)
 
 int main(int argc, char **argv)
 {
+    int 
+
     VL53L0X_Error Status = VL53L0X_ERROR_NONE;
     VL53L0X_Dev_t MyDevice;
     VL53L0X_Dev_t *pMyDevice = &MyDevice;
@@ -224,6 +252,10 @@ int main(int argc, char **argv)
 
     print_pal_error(Status);
 	
+
+    // main loop for getting the measurenments off the lidar  
+    while( )
+
 
     
     return (0);
