@@ -3,10 +3,10 @@ import math
 from matplotlib import pyplot as plt
 
 
-HOST = "127.0.0.1"
-PORT = 9888
+HOST = "10.42.0.124"
+PORT = 8888
 MAX_ANGLE = 180
-MAX_DIST = 300
+MAX_DIST = 500
 
 
 def calc_coords(angle, distance):
@@ -21,9 +21,7 @@ def init_plot():
     fig, ax = plt.subplots(figsize=(10, 10))
 
     plt.title("lidar")
-    plt.xlabel("distance [mm]")
-    plt.ylabel("distance [mm]")
-    plt.gca().set_aspect('equal')
+    # plt.gca().set_aspect('equal')
 
     ax.set_xlim(-10, MAX_DIST)
     ax.set_ylim(-MAX_DIST, MAX_DIST)
@@ -51,12 +49,14 @@ def main():
 
         while True:
             data = s.recv(256).decode("utf-8").split(" ")
-            angle = int(data[0])
-            distance = int(data[1])
-
-            update_plot(fig, lines, angle, distance)
-            print(angle, distance)
-
+            try:
+                angle = int(data[0])
+                distance = int(data[1])
+                update_plot(fig, lines, angle, distance)
+                print(angle, distance)
+            except:
+                print("Invalid data input")
+                s.close
 
 if __name__ == "__main__":
     main()
