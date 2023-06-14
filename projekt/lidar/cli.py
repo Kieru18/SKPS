@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 
 
 HOST = "127.0.0.1"
-PORT = 8888
+PORT = 9888
 MAX_ANGLE = 180
 MAX_DIST = 300
 
@@ -20,13 +20,13 @@ def init_plot():
     plt.ion()
     fig, ax = plt.subplots(figsize=(10, 10))
 
-    plt.title("lidar")W
+    plt.title("lidar")
     plt.xlabel("distance [mm]")
     plt.ylabel("distance [mm]")
     plt.gca().set_aspect('equal')
 
-    axes.set_xlim(-10, MAX_DIST)
-    axes.set_ylim(-MAX_DIST, MAX_DIST)
+    ax.set_xlim(-10, MAX_DIST)
+    ax.set_ylim(-MAX_DIST, MAX_DIST)
     plt.show()
 
     return fig, ax
@@ -54,7 +54,7 @@ def main():
             angle = int(data[0])
             distance = int(data[1])
 
-            update_plot(figure, lines, angle, distance)
+            update_plot(fig, lines, angle, distance)
             print(angle, distance)
 
 
