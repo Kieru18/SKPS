@@ -79,13 +79,13 @@ void close_socket()
     close(server_socket);
 }
 
-void check_measurement_data(const VL53L0X_RangingMeasurementData_t &data)
+bool check_measurement_data(const VL53L0X_RangingMeasurementData_t &data)
 {
     if (data.RangeStatus != 0)
     {
-        std::cerr << "ERROR on measuring distance\n";
-        exit(EXIT_FAILURE);
-    }
+        return false;
+    } else
+        return true;
 }
 
 void write_to_file(const std::string &path, const std::string &text)
@@ -129,8 +129,10 @@ uint16_t measure_distance(VL53L0X_Dev_t &sensor)
     VL53L0X_RangingMeasurementData_t measurement_data;
     VL53L0X_Error status = VL53L0X_PerformSingleRangingMeasurement(&sensor, &measurement_data);
     check_status(status);
-    check_measurement_data(measurement_data);
-    return measurement_data.RangeMilliMeter;
+    if(check_measurement_data(measurement_data))
+        return measurement_data.RangeMilliMeter;
+    else
+        return 0;
 }
 
 void init_sensor(VL53L0X_Dev_t &sensor)
@@ -216,6 +218,8 @@ int main(int argc, char *argv[])
     {
         rotate_servo(angle);
         distance = measure_distance(sensor);
+    
+
         std::string message = std::to_string(angle) + " " + std::to_string(distance) + "\n";
         std::cout << "Send message: " << message;
         send_tcp_message(message);

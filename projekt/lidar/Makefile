@@ -1,28 +1,21 @@
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=lidar
-PKG_VERSION:=1.0
+PKG_NAME:=lidarRPi
 PKG_RELEASE:=1
 
-SOURCE_DIR:=./src
+PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/$(PKG_NAME)
-	SECTION:=projekt
-	CATEGORY:=projekt
-	DEPENDS:=+libstdcpp +libc
-	TITLE:=Lidar
+  SECTION:=lidarRPi
+  CATEGORY:=lidarRPi
+  DEPENDS:=+libstdcpp +libc
+  TITLE:=lidarRPi
 endef
 
 define Package/$(PKG_NAME)/description
-	Lidar - proximity sensor operating in an area
-endef
-
-define Build/Prepare
-	mkdir -p $(PKG_BUILD_DIR)
-	cp $(SOURCE_DIR)/* $(PKG_BUILD_DIR)
-	$(Build/Patch)
+  Lidar - proximity sensor operating in an area
 endef
 
 define Build/Compile
@@ -37,7 +30,7 @@ define Build/Compile
 endef
 
 define Package/$(PKG_NAME)/install
-	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/usr/bin 
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/lidar $(1)/usr/bin/
 endef
 
